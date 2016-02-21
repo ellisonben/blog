@@ -1,5 +1,17 @@
+@import url(https://fonts.googleapis.com/css?family=Lora:400,400italic,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+
 * {
-	font-family: Georgia, serif;
+	font-family: 'Lora', Georgia, serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+}
+
+p, li {
+  line-height: 26px;
 }
 
 a {
@@ -7,6 +19,6 @@ a {
 }
 
 body {
-	width:800px;
+	width:700px;
 	margin:0 auto;
 }
