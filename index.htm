@@ -1,11 +1,272 @@
 <!Doctype HTML> <Html>
 <head>
-	<title>
-	Maths Blog
-	</title>
+    <title>
+    The DIY Masters
+    </title>
+    <link href="main.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="holyGrail.js"></script>
 </head>
 
 <body>
-	<h1>Maths Blog Home</h1>
+    <h1>The DIY Masters</h1>
+    <section>
+        <h2>Post four: Project Euler is great</h2>
+        <p>
+            Project Euler is an excellent website for honing your problem solving skills. 
+        </p>
+        <p>
+            When I was reflecting on my learning process so far, I realised that much of my progress had been achieved through the process of rote learning. Whilst, from a pedagogical perspective, this approach can have some merits, I found myself feeling that the best way forward from here would be to start setting myself challenges that were less procedural and would require reflection by me on how best to utilise my existing skillset to come up with an effective approach.
+        </p>
+    </section>
+        <section>
+        <h2>Post four: Learn Python and C the Hard Way</h2>
+        <p>
+            After getting my feet wet with the codecademy tutorials, I have now decided to start getting busy in the terminal. I have installed Ubuntu onto my computer and am now getting used to package managing, version control and navigating my computer through the command line. 
+        </p>
+        <p>
+            To guide me on my way with this, I have begun using the resources at <a href="https://learncodethehardway.org/python/">Learn Python the Hard Way<a> and <a href="https://learncodethehardway.org/c/">Learn C the Hard Way<a>, both of which have provided me with insight into areas of the computer I was not previously aware of. These two courses have been really helpful in getting me started using these two programming languages. 
+        </p>
+        <p>
+<pre><code>
+from game_functions import *
+
+game_map = Map('room_one')
+game = Engine(game_map)
+game.play()
+</code></pre>
+        </p>
+        <p>
+            Above is the main file for my python riddle game that runs in the command line. Below are the classes that are imported into the game in order to allow it to run. 
+        </p>
+        <p>
+            This exercise was particularly interesting for me as I was able to gain greater insight into how I could get class instances to interact with each other and how the class methods could be used to do things that were not entirely trivial, as had been the case in many of the codecademy tutorials.  
+        </p>
+        <p>
+<pre><code>
+from sys import exit 
+
+class Scene(object):
+
+    """The Scene class is the parent class for the rooms in the game."""
+
+    def enter(self):
+        print "This should not happen as there should be a subclass."
+        exit(1)
+         
+class Engine(object):
+
+    """The Engine class runs the game and calls enter on the instances of 
+    the scenes that the Map creates"""
+
+    def __init__(self, scene_map):
+        self.scene_map = scene_map
+
+    def play(self):
+        current_scene = self.scene_map.start_scene
+        final_scene = self.scene_map.next_scene('finish')
+        while current_scene != final_scene:
+            next_scene = current_scene.enter()
+            current_scene = self.scene_map.next_scene(next_scene)
+        current_scene.enter()
+
+class RoomOne(Scene):
+
+    def enter(self):
+        print "Welcome challenger. You must use your wits to negotiate your"
+        print "way through the rooms of the palace. Good luck.\n"
+        print "Ahead lies an open book with pages propped open.\n"
+        print "What does man love more than life,"
+        print "fear more then death or mortal strife,"
+        print "what the poor have the rich require,"
+        print "and all contented men desire."
+        print "What misers spend and spendthrifts save"
+        print "and all men carry to the grave?"
+        answer = raw_input('> ')
+        while answer!= 'nothing':
+            print "Try again, challenger."
+            answer = raw_input('> ')
+        print "\nVery good. Continue to the next room, challenger.\n"
+        return 'room_two'
+
+class RoomTwo(Scene):
+
+    def enter(self):
+        print "You enter the second room and an ethereal voice speaks: \n"
+        print "One hundred eyes of green and blue" 
+        print "Just look like eyes behind me, man."
+        print "I shudder, shake and turn to you."
+        print "As birds go, I'm your biggest fan.\n"
+        print "What am I?"
+        i=0
+        while i<5:
+            answer = raw_input('> ')
+            if answer == 'peacock' or answer == 'a peacock':
+                print "\nGreat work, challenger. Proceed to the final room.\n"
+                return 'room_three'
+            else:
+                i += 1
+                p = 5 - i
+                print "Try again, challenger."
+                print "You have %s tries remaining" % p
+        print "\nNo tries left. Back to the start.\n"
+        return 'room_one'
+
+class RoomThree(Scene):
+
+    def enter(self):
+        print "This is the final room and now one final puzzle."
+        print "A great orb descends from the ceiling."
+        print "A voice emanates:\n"
+        print "A suit of circling rings I wear;"
+        print "Beneath my skin my armour is deep;"
+        print "So come and strike me - if you dare!"
+        print "For if you wound me, you will weep."
+        print "What am I?"
+        answer = raw_input('> ')
+        if answer == 'onion' or answer == 'an onion':
+            return 'finish'
+        else:
+            print "\nI am afraid your answer has angered the King."
+            print "Back to the first room with you.\n\n"
+            return 'room_one'
+
+class Finish(Scene):
+
+    def enter(self):
+        print "\nCongratulations, challenger."
+        print "You have made it out of the court of the Onion King."
+        print "Happy riddling!"
+        exit(1)
+
+class Map(object):
+
+    """The Map class creates instances of the scenes for the engine to
+    call methods on."""
+    
+    scenes = {
+        'room_one': RoomOne(),
+        'room_two': RoomTwo(),
+        'room_three': RoomThree(),
+        'finish': Finish()
+        } 
+    
+    def __init__(self, start_scene):
+        self.start_scene = Map.scenes.get(start_scene)
+    
+    def next_scene(self, next_scene):
+        next = Map.scenes.get(next_scene)
+        return next
+</code></pre>
+        </p>
+    </section>
+    <section>
+        <h2>Post three: Codecademy is a useful starting point</h2>
+        <p>
+             One of the first things that I have done in my quest to learn programming is try to identify as many high-quality, free resources as possible. <a href="">Codecademy</a> has been one such resource.
+        </p>
+        <p>
+            It provides good tutorials for helping beginners get to grips with basic programming concepts such as control flow and provides coverage of a variety of languages. 
+        </p>
+        <p>
+            I have now completed tutorials in a whole host of languages including Python, Javascript, HTML, CSS, Git, SQL, Ruby and Java. One of the key things that one realises is that much of the synctatic structure of the languages is very similar and, in many respects, they are essentially dialects of one another. Conceptualising them in this way has allowed me to become increasingly confident at applying my skills at new areas with greater speed and accuracy.
+        </p>
+        <p>
+            Of the tutorials offered by codecademy, I would say that the Python and Javascript courses were the most developed in terms of their content and would be the ones that I recommend for new users of the site. Learning to use version control programs like Git is best picked up through incorporating it into your execution of other projects.
+        </p>
+        <p>
+        </p>
+    </section>
+    <section>
+        <h2>Post two: my reading list</h2>
+        <ul>
+            <li>
+                <a href="http://www.amazon.co.uk/Code-Language-Computer-Hardware/dp/0735611319/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1456002520&amp;sr=1-1&amp;keywords=code">Code: The Hidden Language of Computer Hardware and Software</a> 
+                by Charles Petzold
+            </li>
+            <li>
+                <a href="http://www.amazon.co.uk/The-Code-Book-History-Code-breaking/dp/1857028899">The Code Book: The Secret History of Codes and Code-breaking</a> 
+                by Simon Singh
+            </li>
+            <li>
+                <a href="http://www.amazon.co.uk/Algorithm-Design-Manual-Steven-Skiena/dp/1848000693/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1456002653&amp;sr=1-1&amp;keywords=algorithm+design+manual">The Algorithm Design Manual</a> 
+                by Steven S Skiena
+            </li>
+            <li>
+                <a href="http://www.amazon.co.uk/Cracking-Coding-Interview-6th-Programming/dp/0984782850/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1456002758&amp;sr=1-1&amp;keywords=cracking+the+coding+interview">Cracking the Coding Interview, 6th Edition: 189 Programming Questions and Solutions</a> 
+                by Gayle Laakmann McDowell
+            </li>
+        </ul>
+    </section>
+    <section>
+        <h2>Post one: The Bridge of Death</h2>
+        <p>
+            Here is an interactive game that I created using Javascript for my codecademy course using switches and boolean logic to mimic a scene from Monty Python's 'Holy Grail'.
+        </p>
+        <p>
+            <input type="button" value="Play Game" onclick="playGame()">
+        </p>
+        <p>
+<pre><code>
+function playGame () {
+    var user = prompt("Bridgekeeper:'What is your name?'").toUpperCase();
+
+    var elementIsInArray = function(x,xs) {
+        return xs.indexOf(x) !== -1;    
+    }
+
+    switch (user) {
+        case 'ROBIN':
+            var quest=prompt("Bridgekeeper: 'What is your quest?'").toLowerCase();
+            var capital=prompt("Bridgekeeper: 'What is the capital of Assyria?'").toLowerCase(); 
+            if (quest === "to seek the holy grail" && elementIsInArray(capital,["nineveh","assur","nimrud","dur sarukin"])) {
+                alert("Bridgekeeper:'Right. Off you go.'")
+            }
+            else {
+                alert("Robin is thrown from the bridge into the gorge of eternal peril")
+            }
+            break;
+        case 'ARTHUR':
+            var quest=prompt("Bridgekeeper: 'What is your quest?'").toLowerCase();
+            var speed=prompt("Bridgekeeper: 'What... is the air-speed velocity of an unladen swallow?'").toLowerCase(); 
+            if (quest === "to seek the holy grail" && speed === "an african or european swallow?") {
+                alert("Bridgekeeper:'Huh? I... I don't know that. [he is thrown over by his own spell] AUUUUUUUGGGGGGGGGGGHHH!!'")
+            }
+            else {
+                alert("Arthur is thrown from the bridge and the Bridgekeeper cackles malevolently")
+            }
+            break;
+        case 'LANCELOT':
+            var quest=prompt("Bridgekeeper: 'What is your quest?'").toLowerCase();
+            var colour=prompt("Bridgekeeper: 'What is your favourite colour?'").toLowerCase(); 
+            if (quest === "to seek the holy grail" && colour === "blue") {
+                alert("Bridgekeeper:'Right. Off you go.'")
+            }
+            else {
+                alert("Lancelot is thrown from the bridge and the Bridgekeeper cackles malevolently")
+            }
+            break;
+        default:
+            var quest=prompt("Bridgekeeper: 'What is your quest?'").toLowerCase();
+            var capital=prompt("Bridgekeeper: 'What is the capital of Assyria?'").toLowerCase(); 
+            if (quest === "to seek the holy grail" && elementIsInArray(capital,["nineveh","assur","nimrud","dur sarukin"])) {
+                alert("Bridgekeeper:'Right. Off you go.'")
+            }
+            else {
+                alert(user + " " + "is thrown from the bridge and the Bridgekeeper cackles malevolently")
+            }
+    }
+}
+</code></pre>
+        </p>
+    </section>
+    <section>
+        <h2>Post zero: initial post</h2>
+        <p>
+            This is my new blog charting my journey towards becoming a proficient computer programmer. It will also include mathematical curios and other interesting articles that I find. 
+        </p>
+    </section>
 </body>
 </html>
