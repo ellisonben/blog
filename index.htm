@@ -22,6 +22,21 @@
         </p>
     </section>
     <section>
+        <h2>Post six: Linux Troubleshooting</h2>
+        <p>
+            So, I shut down from Linux and went to bed after running some updates from the software manager. Next morning I get up and power up my computer expecting the GRUB boot loader where I choose whether to boot into Ubuntu or Windows. BUT, it doesn't appear! Windows just boots straight up. There must be some mistake, I say to myself. Maybe I missed it, although the default is Ubuntu. Reload. Same. Reload. Same. Oh dear.
+        </p>
+        <p>
+            So I consult google to ask what to do. It comes back with Boot Repair. So I boot Ubuntu from my USB and follow the <a href="https://help.ubuntu.com/community/Boot-Repair">standard instructions</a> to install and run boot repair. Restart (with baited breath). 
+        </p>
+        <p>   
+            Much to my chagrin, it doesn't really do anything. Several hours later I have finally got the GRUB menu to display after going into BIOS, researching bcdedit, EFI and bootmgr amongst other things and have finally come up with a working solution that feels a bit hacky, although I am still unsure with respect to how exactly this problem was caused in the first place.
+        </p>
+        <p>
+            I suppose the learning point is that the inter-relation of so many different pieces of software inevitably causes bugs or, at least, unexpected consequences. When I was first getting started on my computer learning odyssey I was pleased with the order that could be created inside my toy programs, but now I am coming to realise that the computer as a whole is a mind-bendingly complex beast, with so many interactions between so many pieces of software and hardware that there are almost bound to be so-called 'ghosts in the machine' cropping up now and then. Perhaps there is a simple reason that caused the GRUB menu to disappear but it is not widely shared on community forums if it is.
+        </p>
+    </section>
+    <section>
         <h2>Post five: Project Euler is great</h2>
         <p>
             When I was reflecting on my learning so far, I realised that much of my progress had been achieved through the process of rote learning. Whilst, from a pedagogical perspective, this approach can have some merits, I found myself feeling that the best way forward from here would be to start setting myself challenges that were less procedural and would require reflection on how best to utilise my existing skillset to come up with an effective approach.
@@ -33,7 +48,7 @@
             Whilst I am not quite at the point where I am able to solve the top difficulty puzzles just yet, I have solved 68 so far, which puts me in the top 3.4% of all problem solvers - aiming to get to become a one percenter soon!
         </p>
     </section>
-        <section>
+    <section>
         <h2>Post four: Learn Python and C the Hard Way</h2>
         <p>
             After getting my feet wet with the codecademy tutorials, I have now decided to start getting busy in the terminal. I have installed Ubuntu onto my computer and am now getting used to package managing, version control and navigating my computer through the command line. 
