@@ -14,9 +14,9 @@
     float: left;
     width: 200px;
     height: 200px;
-    text-align: center;
-    display: table-cell;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .square:nth-child(3) {
@@ -25,4 +25,8 @@
 
 .row:nth-child(3) > .square {
     border-bottom: 0px;
+}
+
+.move {
+    font-size: 120px;
 }
