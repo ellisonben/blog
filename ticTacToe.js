@@ -46,8 +46,8 @@ function isFull (board) {
     return true;
 }
 
-function playGame () {
+function newGame () {
+    resetboard()
     var board = newBoard();
-    var player = 1;
-    
+    var player = 1;    
 }

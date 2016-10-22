@@ -1,0 +1,28 @@
+#ticTacToe {
+    position: relative;
+    white-space-collapsing: discard;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.square {
+    border-width: 0 10px 10px 0;
+    border-color: black;
+    border-style: solid;
+    float: left;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.square:nth-child(3) {
+    border-right: 0px;
+}
+
+.row:nth-child(3) > .square {
+    border-bottom: 0px;
+}
