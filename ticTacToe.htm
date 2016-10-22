@@ -10,9 +10,9 @@
 <body>
     <div id="ticTacToe">
         <div class="row">
-            <div class="square" id="0,0"><div class="move">X</div></div>
+            <div class="square" id="0,0"><div class="move"></div></div>
             <div class="square" id="1,0"><div class="move"></div></div>
-            <div class="square" id="2,0"><div class="move">O</div></div>
+            <div class="square" id="2,0"><div class="move"></div></div>
             <div class="clearfix"></div>
         </div>
         <div class="row">
@@ -28,7 +28,8 @@
             <div class="clearfix"></div>
         </div>
         
-        <input type="button" value="New Game" onclick="newGame()">
+        <input type="button" value="New Game" id="newGame">
+        <p id="game-status"></p>
     </div>
     
     <script src="ticTacToe.js"></script>   
