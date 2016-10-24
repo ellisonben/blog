@@ -4,6 +4,7 @@
     The DIY Masters
     </title>
     <link href="main.css" type="text/css" rel="stylesheet"/>
+    <link href="ticTacToe.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
@@ -20,6 +21,39 @@
         <p>
             Here is a link to <a href="https://github.com/ellisonben">my GitHub</a>.
         </p>
+    </section>
+    <section>
+        <h2>Noughts &amp; Crosses (aka Tic-Tac-Toe)</h2>
+        <p>
+            I have put together a JavaScript version of noughts and crosses. It is currently for two human players and I hope to introduce AI functionality soon.
+        </p>
+        <p>
+            Have a go:
+        </p>
+        <div id="ticTacToe">
+            <div class="row">
+                <div class="square" id="0,0"><div class="move"></div></div>
+                <div class="square" id="1,0"><div class="move"></div></div>
+                <div class="square" id="2,0"><div class="move"></div></div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="row">
+                <div class="square" id="0,1"><div class="move"></div></div>
+                <div class="square" id="1,1"><div class="move"></div></div>
+                <div class="square" id="2,1"><div class="move"></div></div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="row">
+                <div class="square" id="0,2"><div class="move"></div></div>
+                <div class="square" id="1,2"><div class="move"></div></div>
+                <div class="square" id="2,2"><div class="move"></div></div>
+                <div class="clearfix"></div>
+            </div>
+            
+            <input type="button" value="New Game" id="newGame">
+            <p id="game-status"></p>
+        </div>
+        
     </section>
     <section>
         <h2>Using Canvas</h2>
@@ -60,7 +94,7 @@ function drawSpiral(context, position, size, whirls, numberOfLines) {
         <p>
             The key to the function fitting within the assigned size limit is using a scale variable to make sure that the spiral has, at its furthest point, a radius equal to half of the size parameter passed to it. The scale is key to allowing the spiral to be resized.
         </p>
-        <canvas id="spirals" width="600" height="170"></canvas>
+        <canvas id="spirals" width="600" height="160"></canvas>
     </section>
     <section>
         <h2>Post six: Linux Troubleshooting</h2>
@@ -338,5 +372,6 @@ function playGame () {
     </section>
 
 <script src="shapes.js"></script>
+<script src="ticTacToe.js"></script> 
 </body>
 </html>

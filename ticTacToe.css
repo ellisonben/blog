@@ -3,11 +3,11 @@
     white-space-collapsing: discard;
 }
 
-.clearfix {
+#ticTacToe .clearfix {
     clear: both;
 }
 
-.square {
+#ticTacToe .square {
     border-width: 0 10px 10px 0;
     border-color: black;
     border-style: solid;
@@ -19,14 +19,14 @@
     justify-content: center;
 }
 
-.square:nth-child(3) {
+#ticTacToe .square:nth-child(3) {
     border-right: 0px;
 }
 
-.row:nth-child(3) > .square {
+#ticTacToe .row:nth-child(3) > .square {
     border-bottom: 0px;
 }
 
-.move {
+#ticTacToe .move {
     font-size: 120px;
 }
