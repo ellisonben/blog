@@ -97,7 +97,7 @@ function drawSpiral(context, position, size, whirls, numberOfLines) {
         <canvas id="spirals" width="600" height="160"></canvas>
     </section>
     <section>
-        <h2>Post six: Linux Troubleshooting</h2>
+        <h2>Linux Troubleshooting</h2>
         <p>
             So, I shut down from Linux and went to bed after running some updates from the software manager. Next morning I get up and power up my computer expecting the GRUB boot loader where I choose whether to boot into Ubuntu or Windows. BUT, it doesn't appear! Windows just boots straight up. There must be some mistake, I say to myself. Maybe I missed it, although the default is Ubuntu. Reload. Same. Reload. Same. Oh dear.
         </p>
@@ -112,19 +112,63 @@ function drawSpiral(context, position, size, whirls, numberOfLines) {
         </p>
     </section>
     <section>
-        <h2>Post five: Project Euler is great</h2>
+        <h2>Project Euler is great</h2>
         <p>
             When I was reflecting on my learning so far, I realised that much of my progress had been achieved through the process of rote learning. Whilst, from a pedagogical perspective, this approach can have some merits, I found myself feeling that the best way forward from here would be to start setting myself challenges that were less procedural and would require reflection on how best to utilise my existing skillset to come up with an effective approach.
         </p>
         <p>
             <a href="https://projecteuler.net/">Project Euler</a> is an excellent resource for honing your computational and mathematical skills through problem solving. The Project Euler problems are great for this and have proved to be challenging and enjoyable in equal measure. I have been using Python for the majority of my solutions - it has been great to combine my love of solving mathematical problems with coding. I have learnt a lot more about python, utilising a wide variety of modules such as itertools and bitarray to help in specific circumstances.
         </p>
+        <p>
+            Whilst I am not supposed to share solutions to problems, I thought I could put up a helpful tool that may help those that are beginning to play around with the problem: a prime finder! This one uses the <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Erastosthenes</a> - it's an oldie but a goodie. There are a variety of <a href="http://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n">other solutions</a> available and many more efficient packages but it is quite satisfying putting your own sieve together. The <a href="https://en.wikipedia.org/wiki/Sieve_of_Sundaram">Sieve of Sundaram</a> is a good next sieve to look at if you are interested in prime sieves.
+        </p>
+<pre><code>
+from math import sqrt
+from bitarray import bitarray
+
+def generate_primes(n):
+    
+    """generate_primes(n)[i] == whether i is prime, given i <= n"""
+    
+    prime_list = bitarray(n+1)
+    prime_list.setall(True)
+    prime_list[0] = False
+    prime_list[1] = False 
+    for i in range(2, int(sqrt(n)) + 1):
+        if prime_list[i] == True:
+            x = 0
+            while i**2 + x*i <= n:
+                prime_list[i**2 + x*i] = False
+                x += 1 
+    return prime_list
+
+if __name__ == "__main__":
+    primes = generate_primes(10**9)
+    f = open("primes.txt", "w+b")
+    f.write(primes.tobytes())
+    f.close()
+</code></pre>
+        <p>
+            To read your primes.txt file back into your python program use the reader below to generate an array. This will save you lots of time, allowing more efficient solutions to many of the problems. It will also save your computer fan a lot of work and lead to a longer living processor. You're Welcome!
+        </p>
+<pre><code>
+from bitarray import bitarray
+
+def read_primes():
+    f = open("primes.txt", "r+b")
+    primes_bytes = f.read()
+    f.close()
+    primes = bitarray()
+    primes.frombytes(primes_bytes)
+    
+    return primes
+</code></pre>
         <p>   
             Whilst I am not quite at the point where I am able to solve the top difficulty puzzles just yet, I have solved 68 so far, which puts me in the top 3.4% of all problem solvers - aiming to get to become a one percenter soon!
         </p>
     </section>
     <section>
-        <h2>Post four: Learn Python and C the Hard Way</h2>
+        <h2>Learn Python and C the Hard Way</h2>
         <p>
             After getting my feet wet with the codecademy tutorials, I have now decided to start getting busy in the terminal. I have installed Ubuntu onto my computer and am now getting used to package managing, version control and navigating my computer through the command line. 
         </p>
@@ -265,7 +309,7 @@ class Map(object):
         </p>
     </section>
     <section>
-        <h2>Post three: Codecademy is a useful starting point</h2>
+        <h2>Codecademy is a useful starting point</h2>
         <p>
              One of the first things that I have done in my quest to learn programming is try to identify as many high-quality, free resources as possible. <a href="">Codecademy</a> has been one such resource.
         </p>
@@ -282,7 +326,7 @@ class Map(object):
         </p>
     </section>
     <section>
-        <h2>Post two: my reading list</h2>
+        <h2>A reading list</h2>
         <ul>
             <li>
                 <a href="http://www.amazon.co.uk/Code-Language-Computer-Hardware/dp/0735611319/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1456002520&amp;sr=1-1&amp;keywords=code">Code: The Hidden Language of Computer Hardware and Software</a> 
@@ -303,9 +347,9 @@ class Map(object):
         </ul>
     </section>
     <section>
-        <h2>Post one: The Bridge of Death</h2>
+        <h2>The Bridge of Death</h2>
         <p>
-            Here is an interactive game that I created using Javascript for my codecademy course using switches and boolean logic to mimic a scene from Monty Python's 'Holy Grail'.
+            Here is an interactive game that I created using Javascript on codecademy using switches and boolean logic to mimic a scene from Monty Python's 'Holy Grail'.
         </p>
         <p>
             <input type="button" value="Play Game" onclick="playGame()">
@@ -365,7 +409,7 @@ function playGame () {
         </p>
     </section>
     <section>
-        <h2>Post zero: initial post</h2>
+        <h2>Init</h2>
         <p>
             This is my new blog charting my journey towards becoming a proficient computer programmer. It will also include mathematical curios and other interesting articles that I find. 
         </p>
