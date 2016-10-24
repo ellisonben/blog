@@ -22,6 +22,47 @@
         </p>
     </section>
     <section>
+        <h2>Using Canvas</h2>
+        <p>
+            Experimenting with Canvas has given me a new way to play with the graphical capabilities of the browser.
+        </p>
+        <canvas id="shapes" width="600" height="170"></canvas>
+        <p>
+            Here are a selection of stars with differing numbers of points. They are constructed using the quadraticCurveTo method on the context using the parametric equation of a circle to find point on the outside of the circle at equal distances around the circumference.
+        </p>
+        <canvas id="stars" width="600" height="120"></canvas>
+        <p>
+            I have also written a function that can draw spirals by drawing straight lines between points on a parametrically defined spiral. In order to make the spiral smoother, one must increase the numberOfLines parameter, particularly if there are a larger number of whirls as this will make the curvature more severe.
+        </p>
+        
+<pre><code>        
+function drawSpiral(context, position, size, whirls, numberOfLines) {
+    var x = position.x;
+    var y = position.y;
+    var angle = 0;
+    var totalAngle = whirls * 2 * Math.PI;
+    var scale = size / (2 * Math.sqrt(
+                        Math.pow(totalAngle * Math.cos(totalAngle), 2) + 
+                        Math.pow(totalAngle * Math.sin(totalAngle), 2)
+                        ));
+    context.beginPath();
+    context.moveTo(x + size/2, y + size/2);
+    for (var i = 0; i < numberOfLines; i++) {
+        angle += totalAngle/numberOfLines
+        context.lineTo(
+                        x + size/2 + scale * angle * Math.cos(angle), 
+                        y + size/2 + scale * angle * Math.sin(angle)
+                        );
+    }
+    context.stroke();
+}
+</code></pre>
+        <p>
+            The key to the function fitting within the assigned size limit is using a scale variable to make sure that the spiral has, at its furthest point, a radius equal to half of the size parameter passed to it. The scale is key to allowing the spiral to be resized.
+        </p>
+        <canvas id="spirals" width="600" height="170"></canvas>
+    </section>
+    <section>
         <h2>Post six: Linux Troubleshooting</h2>
         <p>
             So, I shut down from Linux and went to bed after running some updates from the software manager. Next morning I get up and power up my computer expecting the GRUB boot loader where I choose whether to boot into Ubuntu or Windows. BUT, it doesn't appear! Windows just boots straight up. There must be some mistake, I say to myself. Maybe I missed it, although the default is Ubuntu. Reload. Same. Reload. Same. Oh dear.
@@ -30,7 +71,7 @@
             So I consult google to ask what to do. It comes back with Boot Repair. So I boot Ubuntu from my USB and follow the <a href="https://help.ubuntu.com/community/Boot-Repair">standard instructions</a> to install and run boot repair. Restart (with baited breath). 
         </p>
         <p>   
-            Much to my chagrin, it doesn't really do anything. Several hours later I have finally got the GRUB menu to display after going into BIOS, researching bcdedit, EFI and bootmgr amongst other things and have finally come up with a working solution that feels a bit hacky, although I am still unsure with respect to how exactly this problem was caused in the first place.
+            Much to my chagrin, it doesn't really do anything. Several hours later I have finally got the GRUB menu to display after going into BIOS, researching bcdedit, EFI and bootmgr amongst other things and have finally come up with a working solution that feels a bit hacky, although I am still unsure how exactly this problem was caused in the first place.
         </p>
         <p>
             I suppose the learning point is that the inter-relation of so many different pieces of software inevitably causes bugs or, at least, unexpected consequences. When I was first getting started on my computer learning odyssey I was pleased with the order that could be created inside my toy programs, but now I am coming to realise that the computer as a whole is a mind-bendingly complex beast, with so many interactions between so many pieces of software and hardware that there are almost bound to be so-called 'ghosts in the machine' cropping up now and then. Perhaps there is a simple reason that caused the GRUB menu to disappear but it is not widely shared on community forums if it is.
@@ -295,5 +336,7 @@ function playGame () {
             This is my new blog charting my journey towards becoming a proficient computer programmer. It will also include mathematical curios and other interesting articles that I find. 
         </p>
     </section>
+
+<script src="shapes.js"></script>
 </body>
 </html>
