@@ -1,0 +1,14 @@
+.trail { /* className for the trail elements */
+    position: absolute;
+    height: 6px; width: 6px;
+    border-radius: 3px;
+    background: teal;
+    pointer-events: none;
+}
+
+#toggleMouseTrail {
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+}
+

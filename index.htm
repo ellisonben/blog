@@ -5,6 +5,7 @@
     </title>
     <link href="main.css" type="text/css" rel="stylesheet"/>
     <link href="ticTacToe.css" type="text/css" rel="stylesheet"/>
+    <link href="mouseTrail.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
@@ -95,6 +96,16 @@ function drawSpiral(context, position, size, whirls, numberOfLines) {
             The key to the function fitting within the assigned size limit is using a scale variable to make sure that the spiral has, at its furthest point, a radius equal to half of the size parameter passed to it. The scale is key to allowing the spiral to be resized.
         </p>
         <canvas id="spirals" width="600" height="160"></canvas>
+    </section>
+    <section>
+        <h2>Mouse Trail</h2>
+        <p>
+            Anyone else miss the nineties and early noughties? Me neither. 
+        </p>
+        <p>
+            That is, apart from our old friend the mouse trail. For those of you two young to remember, the mouse trail was the kind of feature only the coolest webpages allowed. Well, nostalgia lovers, I now give you the option to jump in the time machine and enjoy your very own mouse trail.
+        </p>
+        <input type="button" value="Back to the 90s" id="toggleMouseTrail">
     </section>
     <section>
         <h2>Linux Troubleshooting</h2>
@@ -416,6 +427,7 @@ function playGame () {
     </section>
 
 <script src="shapes.js"></script>
-<script src="ticTacToe.js"></script> 
+<script src="ticTacToe.js"></script>
+<script src="mouseTrail.js"></script>
 </body>
 </html>
