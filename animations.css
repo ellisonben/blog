@@ -1,0 +1,18 @@
+#animations {
+    position: relative;
+    width: 700px;
+    height: 300px;
+}
+
+#animations .img-container {
+    position: absolute;
+    max-width: 100px
+}
+
+#animations img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
+

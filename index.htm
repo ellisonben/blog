@@ -6,6 +6,7 @@
     <link href="main.css" type="text/css" rel="stylesheet"/>
     <link href="ticTacToe.css" type="text/css" rel="stylesheet"/>
     <link href="mouseTrail.css" type="text/css" rel="stylesheet"/>
+    <link href="animations.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
@@ -63,7 +64,7 @@
         </p>
         <canvas id="shapes" width="600" height="170"></canvas>
         <p>
-            Here are a selection of stars with differing numbers of points. They are constructed using the quadraticCurveTo method on the context using the parametric equation of a circle to find point on the outside of the circle at equal distances around the circumference.
+            Here are a selection of stars with differing numbers of points. They are constructed using the quadraticCurveTo method on the context using the parametric equation of a circle to find points on the outside of the circle at equal distances around the circumference.
         </p>
         <canvas id="stars" width="600" height="120"></canvas>
         <p>
@@ -131,7 +132,7 @@ function drawSpiral(context, position, size, whirls, numberOfLines) {
             <a href="https://projecteuler.net/">Project Euler</a> is an excellent resource for honing your computational and mathematical skills through problem solving. The Project Euler problems are great for this and have proved to be challenging and enjoyable in equal measure. I have been using Python for the majority of my solutions - it has been great to combine my love of solving mathematical problems with coding. I have learnt a lot more about python, utilising a wide variety of modules such as itertools and bitarray to help in specific circumstances.
         </p>
         <p>
-            Whilst I am not supposed to share solutions to problems, I thought I could put up a helpful tool that may help those that are beginning to play around with the problem: a prime finder! This one uses the <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Erastosthenes</a> - it's an oldie but a goodie. There are a variety of <a href="http://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n">other solutions</a> available and many more efficient packages but it is quite satisfying putting your own sieve together. The <a href="https://en.wikipedia.org/wiki/Sieve_of_Sundaram">Sieve of Sundaram</a> is a good next sieve to look at if you are interested in prime sieves.
+            Whilst I am not supposed to share solutions to problems, I thought I could put up a helpful tool for those that are beginning to play around with the problems: a prime finder! This one uses the <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Erastosthenes</a> - it's an oldie but a goodie. There are a variety of <a href="http://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n">other solutions</a> available and many more efficient packages but it is quite satisfying putting your own sieve together. The <a href="https://en.wikipedia.org/wiki/Sieve_of_Sundaram">Sieve of Sundaram</a> is a good next sieve to look at if you are interested in prime sieves.
         </p>
 <pre><code>
 from math import sqrt
@@ -178,6 +179,20 @@ def read_primes():
             Whilst I am not quite at the point where I am able to solve the top difficulty puzzles just yet, I have solved 68 so far, which puts me in the top 3.4% of all problem solvers - aiming to get to become a one percenter soon!
         </p>
     </section>
+    <section>
+        <h2>Animations</h2>
+        <p>
+            I have been playing with requestAnimationFrame in order to add animations to webpages.
+        </p>
+        <div id="animations">
+            <div class="img-container" id="hilary">
+                <img src="img/hilary.png">
+            </div>
+            <div class="img-container" id="trump">
+                <img src="img/trump.jpg">
+            </div>
+        </div>
+    </section>    
     <section>
         <h2>Learn Python and C the Hard Way</h2>
         <p>
@@ -429,5 +444,6 @@ function playGame () {
 <script src="shapes.js"></script>
 <script src="ticTacToe.js"></script>
 <script src="mouseTrail.js"></script>
+<script src="animations.js"></script>
 </body>
 </html>
