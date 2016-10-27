@@ -33,8 +33,9 @@ function toDaysHoursMins(ms) {
         ).trim();
 }
 
-function checkLastCommit() {
-    var timeOnLoad = new Date();
+// TODO: needs to be reworked and cleaned up
+function timeFromLastPush() {
+    var currentTime = new Date();
     var events = JSON.parse(this.responseText);
     var i = 0;
     while (events[i].type != "PushEvent" && i < events.length) {
@@ -43,8 +44,8 @@ function checkLastCommit() {
     console.log(events[i].created_at);
     var pushTime = new Date(events[i].created_at);
     console.log(pushTime);
-    console.log("It has been " + 
-            toDaysHoursMins(timeOnLoad - pushTime) +
+    console.log ("It has been " + 
+            toDaysHoursMins(currentTime - pushTime) +
             " since you last pushed to GitHub"
             );
 }
@@ -52,9 +53,39 @@ function checkLastCommit() {
 // TODO: add some sort of reminder functionality - email? popups? SMS?
 
 req.addEventListener("load", printResponse);
-req.addEventListener("load", checkLastCommit);
+req.addEventListener("load", timeFromLastPush);
+
 req.open("GET", "https://api.github.com/users/ellisonben/events", true);
 req.send();
-// TODO: add some error catching for bad requests
 
 
+/* 
+TODO: create abstraction of getting URL process
+Potentially use this pattern: 
+
+function getURL(url, callback) {
+  var req = new XMLHttpRequest();
+  req.open("GET", url, true);
+  req.addEventListener("load", function() {
+    if (req.status < 400)
+      callback(req.responseText);
+    else
+      callback(null, new Error("Request failed: " +
+                               req.statusText));
+  });
+  req.addEventListener("error", function() {
+    callback(null, new Error("Network error"));
+  });
+  req.send(null);
+}
+
+TODO: add some error catching for bad requests
+Need to be able to handle error in callback function if it arises
+
+getURL("data/nonsense.txt", function(content, error) {
+  if (error != null)
+    console.log("Failed to fetch nonsense.txt: " + error);
+  else
+    console.log("nonsense.txt: " + content);
+});
+*/
