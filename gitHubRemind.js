@@ -2,8 +2,8 @@
 This application is still a work in progress
 
 The idea is that it will eventually be able to provide reminders to users to 
-get them to push their work to github and get encourage being a more active 
-user of the resource. 
+get them to push their work to GitHub and encourage them to be more active 
+users of the resource. 
 */ 
 
 var req = new XMLHttpRequest();
@@ -12,18 +12,49 @@ function printResponse() {
     console.log(JSON.parse(this.responseText));
 }
 
+function formatTime(num, sing, plur) {
+    if (num == 1) {
+        return ("1 " + sing);
+    } else if (num > 0) {
+        return (num + " " + plur);
+    } else {
+        return "";
+    }
+}
+
+function toDaysHoursMins(ms) {
+    var days = Math.floor(ms/86400000);
+    var hours = Math.floor((ms%86400000)/3600000);
+    var mins = Math.floor((ms%3600000)/60000);
+    return (
+        formatTime(days, "day", "days") + " " +
+        formatTime(hours, "hour", "hours") + " " +
+        formatTime(mins, "minute", "minutes")
+        ).trim();
+}
+
 function checkLastCommit() {
+    var timeOnLoad = new Date();
     var events = JSON.parse(this.responseText);
     var i = 0;
     while (events[i].type != "PushEvent" && i < events.length) {
         i++;
     }
     console.log(events[i].created_at);
-    var commit_time = new Date(events[i].created_at);
-    console.log(commit_time);
+    var pushTime = new Date(events[i].created_at);
+    console.log(pushTime);
+    console.log("It has been " + 
+            toDaysHoursMins(timeOnLoad - pushTime) +
+            " since you last pushed to GitHub"
+            );
 }
+
+// TODO: add some sort of reminder functionality - email? popups? SMS?
 
 req.addEventListener("load", printResponse);
 req.addEventListener("load", checkLastCommit);
 req.open("GET", "https://api.github.com/users/ellisonben/events", true);
-req.send()
+req.send();
+// TODO: add some error catching for bad requests
+
+
