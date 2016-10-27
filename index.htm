@@ -182,7 +182,7 @@ def read_primes():
     <section>
         <h2>Animations</h2>
         <p>
-            I have been playing with requestAnimationFrame in order to add animations to webpages.
+            I have been playing with requestAnimationFrame in order to add animations to webpages. The function takes a callback function as a parameter in order to update the animation that you are defining in the next repaint. This callback function will typically call requestAnimationFrame again in order to perpetuate the animation. 
         </p>
         <div id="animations">
             <div class="img-container" id="hilary">
@@ -192,6 +192,9 @@ def read_primes():
                 <img src="img/trump.jpg">
             </div>
         </div>
+        <p>
+            Here, I have set the images of Hillary Clinton and Donald Trump at opposite sides of a <a href="http://www.mathopenref.com/coordparamellipse.html">parametrically defined ellipse</a>. Each time the requestAnimationFrame is called on the animate function, the angle is incremented and this leads to the images moving around the path as the position of the image on the elliptical path is calculated with the angle parameter. I have resized the images of Donald and Hillary using container divs that have been styled (animations.css in sources) to shrink these images down to 100px squares. 
+        </p>
     </section>    
     <section>
         <h2>Learn Python and C the Hard Way</h2>
