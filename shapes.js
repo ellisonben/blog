@@ -9,7 +9,7 @@
         context.lineTo(x + size, y + size/2);
         context.closePath();
         context.fillStyle = colour;
-        context.fill()
+        context.fill();
     }
 
     function drawZigZag(context, position, width, height, numberOfZigs) {
@@ -38,7 +38,7 @@
         context.beginPath();
         context.moveTo(x + size/2, y + size/2);
         for (var i = 0; i < numberOfLines; i++) {
-            angle += totalAngle/numberOfLines
+            angle += totalAngle/numberOfLines;
             context.lineTo(
                             x + size/2 + scale * angle * Math.cos(angle), 
                             y + size/2 + scale * angle * Math.sin(angle)
