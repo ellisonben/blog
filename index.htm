@@ -4,6 +4,7 @@
     The DIY Masters
     </title>
     <link href="main.css" type="text/css" rel="stylesheet"/>
+    <link href="bouncingBall.css" type="text/css" rel="stylesheet"/>
     <link href="ticTacToe.css" type="text/css" rel="stylesheet"/>
     <link href="mouseTrail.css" type="text/css" rel="stylesheet"/>
     <link href="animations.css" type="text/css" rel="stylesheet"/>
@@ -22,6 +23,58 @@
         </p>
         <p>
             Here is a link to <a href="https://github.com/ellisonben">my GitHub</a>.
+        </p>
+    </section>
+    <section>
+        <h2>Bouncer</h2>
+        <p>
+            Here is a bouncing ball that I have coded up to bounce around a canvas object at constant speed, bouncing off of the walls as it collides with them. I have implemented this using a Vector type to model the speed and position of a Ball object, updating the ball's position and redrawing each time the animation is repainted using requestAnimationFrame.
+        </p>
+        <canvas id="bouncingBall"></canvas>
+        <p>
+            Below are the constructors for the Vector type and the Ball type. The position, taken as a parameter when constructing new Balls, is a Vector.   
+        </p>
+<pre><code>
+// Vector constructor
+function Vector(x, y) {
+    this.x = x;
+    this.y = y;
+}
+
+Vector.prototype.plus = function(other) {
+    return new Vector(this.x + other.x, this.y + other.y);
+};
+
+Vector.prototype.times = function(factor) {
+    return new Vector(this.x * factor, this.y * factor);
+};
+
+// Ball constructor
+function Ball(position) {
+    this.position = position;
+    // could randomise this?
+    this.speed = new Vector(75, 125);
+}
+
+Ball.prototype.act = function(step) {
+    var newPosition = this.position.plus(this.speed.times(step));
+    if (newPosition.x > canvas.width || newPosition.x < 0) {
+        this.speed.x *= -1;
+    } else if (newPosition.y > canvas.height || newPosition.y < 0) {
+        this.speed.y *= -1; 
+    } else {
+        this.position = newPosition;
+    }
+}
+</code></pre>
+        <p>
+            The key to giving the Ball movement is the act method which modifies the Ball object's position attribute, using the speed multiplied by the time step between animation frames to calculate where the ball would be after that time has passed. If the new position would take it out of the confines of the canvas that it is bouncing around, then the direction of travel is reversed by mutliplying the speed vector by negative one in the appropriate dimension (x or y) depending on which side of the canvas it will exit from. It will then recalculate the new position on the next frame with the modified speed value.
+        </p>
+        <p>
+            You may have noticed that the ball slightly overlaps with the side of the canvas on impact as the ball is calculating whether its centre is out of the canvas as opposed to using its edge. With the radius set to a small value, as in this example, this is not a problem as it provides a kind of squish into the walls. It is also more likely to avoid the ball stopping early before the wall if the speed is increased, where it is possible for the ball's centre to project beyond the edge of the canvas without it reaching the edge when calculating the new position, resulting in a turn prior to collision. This could be fixed by calculating the point of collision and updating the position to there before continuing with a reversed speed value on the next animation frame. I will have a look at that in a future post, comparing the two models.  
+        </p>
+        <p>
+            To see the full implementation, check out bouncingBall.js in the sources for this page. 
         </p>
     </section>
     <section>
@@ -84,7 +137,7 @@ function drawSpiral(context, position, size, whirls, numberOfLines) {
     context.beginPath();
     context.moveTo(x + size/2, y + size/2);
     for (var i = 0; i < numberOfLines; i++) {
-        angle += totalAngle/numberOfLines
+        angle += totalAngle/numberOfLines;
         context.lineTo(
                         x + size/2 + scale * angle * Math.cos(angle), 
                         y + size/2 + scale * angle * Math.sin(angle)
@@ -444,6 +497,7 @@ function playGame () {
         </p>
     </section>
 
+<script src="bouncingBall.js"></script>
 <script src="shapes.js"></script>
 <script src="ticTacToe.js"></script>
 <script src="mouseTrail.js"></script>
