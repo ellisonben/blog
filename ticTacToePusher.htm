@@ -1,0 +1,41 @@
+<!Doctype HTML> <Html>
+<head>
+    <title>
+        Tic Tac Toe with Pusher
+    </title>
+    <link href="ticTacToe.css" type="text/css" rel="stylesheet"/>
+     
+</head>
+
+<body>
+    <div id="ticTacToe">
+        <div class="row">
+            <div class="square" id="0,0"><div class="move"></div></div>
+            <div class="square" id="1,0"><div class="move"></div></div>
+            <div class="square" id="2,0"><div class="move"></div></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="row">
+            <div class="square" id="0,1"><div class="move"></div></div>
+            <div class="square" id="1,1"><div class="move"></div></div>
+            <div class="square" id="2,1"><div class="move"></div></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="row">
+            <div class="square" id="0,2"><div class="move"></div></div>
+            <div class="square" id="1,2"><div class="move"></div></div>
+            <div class="square" id="2,2"><div class="move"></div></div>
+            <div class="clearfix"></div>
+        </div>
+        
+        <input type="button" value="New Game" id="newGame">
+        <p id="game-status"></p>
+    </div>
+    
+
+  <script src="https://js.pusher.com/3.2/pusher.min.js"></script>
+
+
+    
+    <script src="ticTacToePusher.js"></script>   
+</body>
