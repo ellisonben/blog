@@ -37,12 +37,9 @@ function toDaysHoursMins(ms) {
 function timeFromLastPush() {
     var currentTime = new Date();
     var events = JSON.parse(this.responseText);
-    var i = 0;
-    while (events[i].type != "PushEvent" && i < events.length) {
-        i++;
-    }
-    console.log(events[i].created_at);
-    var pushTime = new Date(events[i].created_at);
+    var pushEvent = events.filter(event => event.type === "PushEvent")[0];
+    console.log(pushEvent.created_at);
+    var pushTime = new Date(pushEvent.created_at);
     console.log(pushTime);
     console.log ("It has been " + 
             toDaysHoursMins(currentTime - pushTime) +
