@@ -31,7 +31,7 @@ function toDaysHoursMins(ms) {
         formatTime(hours, "hour", "hours"),
         formatTime(mins, "minute", "minutes")
         ].filter(t => t !== null);
-    return timeParts == []? "0 minutes": timeParts.join(" ");
+    return (timeParts.length == 0? "0 minutes": timeParts.join(" "));
 }
 
 // TODO: needs to be reworked and cleaned up
