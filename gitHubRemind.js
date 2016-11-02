@@ -18,7 +18,7 @@ function formatTime(num, sing, plur) {
     } else if (num > 0) {
         return (num + " " + plur);
     } else {
-        return "";
+        return null;
     }
 }
 
@@ -26,23 +26,21 @@ function toDaysHoursMins(ms) {
     var days = Math.floor(ms/86400000);
     var hours = Math.floor((ms%86400000)/3600000);
     var mins = Math.floor((ms%3600000)/60000);
-    return (
-        formatTime(days, "day", "days") + " " +
-        formatTime(hours, "hour", "hours") + " " +
+    var timeParts = [
+        formatTime(days, "day", "days"),
+        formatTime(hours, "hour", "hours"),
         formatTime(mins, "minute", "minutes")
-        ).trim();
+        ].filter(t => t !== null);
+    return timeParts == []? "0 minutes": timeParts.join(" ");
 }
 
 // TODO: needs to be reworked and cleaned up
 function timeFromLastPush() {
     var currentTime = new Date();
     var events = JSON.parse(this.responseText);
-    var i = 0;
-    while (events[i].type != "PushEvent" && i < events.length) {
-        i++;
-    }
-    console.log(events[i].created_at);
-    var pushTime = new Date(events[i].created_at);
+    var pushEvent = events.filter(event => event.type === "PushEvent")[0];
+    console.log(pushEvent.created_at);
+    var pushTime = new Date(pushEvent.created_at);
     console.log(pushTime);
     console.log ("It has been " + 
             toDaysHoursMins(currentTime - pushTime) +
