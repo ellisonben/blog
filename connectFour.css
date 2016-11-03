@@ -1,0 +1,12 @@
+#connect-four {
+    position: relative;
+    white-space-collapsing: discard;
+}
+
+#connect-four .clearfix {
+    clear: both;
+}
+
+#connect-four .column-header {
+    float: left;
+}
