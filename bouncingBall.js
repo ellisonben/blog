@@ -4,7 +4,7 @@
     var initialX = Math.floor(Math.random() * canvas.width + 1);
     var initialY = Math.floor(Math.random() * canvas.height + 1);
     var ball = new Ball(new Vector(initialX, initialY));
-    var radius = 4;
+    var radius = 6;
     
     // Vector constructor
     function Vector(x, y) {
