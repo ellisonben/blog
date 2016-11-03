@@ -8,6 +8,7 @@
     <link href="ticTacToe.css" type="text/css" rel="stylesheet"/>
     <link href="mouseTrail.css" type="text/css" rel="stylesheet"/>
     <link href="animations.css" type="text/css" rel="stylesheet"/>
+    <link href="connectFour.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
@@ -24,6 +25,35 @@
         <p>
             Here is a link to <a href="https://github.com/ellisonben">my GitHub</a>.
         </p>
+    </section>
+    <section>
+        <h2>Connect Four</h2>
+        <p>
+            I recently went to a wedding where they had a giant Connect 4 game for guests to play on during the day. Having a go with it reignited my childhood love of the game.
+        </p>
+        <p>
+            Below is my version of the game using JavaScript. The game uses canvas elements to show the state of play and stores the game state in a two dimensional array. I am looking to introduce a move animation to the game and write an AI for it (first job is to write one for the tic tac toe below).
+        </p>
+        <p>
+            Hover above the columns to select the move that you want to make.
+        </p>
+        <div id="connect-four">
+            <canvas class="column-header" id="connect-four-0" width="100" height="100"></canvas>
+            <canvas class="column-header" id="connect-four-1" width="100" height="100"></canvas>
+            <canvas class="column-header" id="connect-four-2" width="100" height="100"></canvas>
+            <canvas class="column-header" id="connect-four-3" width="100" height="100"></canvas>
+            <canvas class="column-header" id="connect-four-4" width="100" height="100"></canvas>
+            <canvas class="column-header" id="connect-four-5" width="100" height="100"></canvas>
+            <canvas class="column-header" id="connect-four-6" width="100" height="100"></canvas>
+            <div class="clearfix"></div>
+            
+            <canvas id ="connect-four-board" width="700" height="600"></canvas>
+            <div class="clearfix"></div>
+            
+            <input type="button" value="New Game" id="connect-four-new-game">
+            <p id="connect-four-game-status"></p>
+        </div>
+
     </section>
     <section>
         <h2>Bouncer</h2>
@@ -502,5 +532,6 @@ function playGame () {
 <script src="ticTacToe.js"></script>
 <script src="mouseTrail.js"></script>
 <script src="animations.js"></script>
+<script src="connectFour.js"></script>   
 </body>
 </html>
