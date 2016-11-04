@@ -1,6 +1,6 @@
 (function() {
     
-    //Model
+//Model
     
     function newBoard() {
         return [
@@ -20,7 +20,7 @@
     //finds the row that move 'drops' to
     function getEmptyRow(board, move) {
         var emptyRow;
-        for (var i=0;i<6; i++) {
+        for (var i=0; i<6; i++) {
             if (board[i][move] == 0) {
                 emptyRow = i;
             }
@@ -110,33 +110,91 @@
         return true;
     }
     
+    // Constructors for animation
+    // Vector constructor
+    function Vector(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    Vector.prototype.plus = function(other) {
+        return new Vector(this.x + other.x, this.y + other.y);
+    };
+
+    Vector.prototype.times = function(factor) {
+        return new Vector(this.x * factor, this.y * factor);
+    };
+
+    // Move constructor
+    function Move(position, player) {
+        this.position = position;
+        console.log(getEmptyRow(board, 5));
+        this.endPosition = getEmptyRow(board, position.x/100) * 100;
+        this.player = player;
+        this.speed = new Vector(0, 200);
+    }
+
+    Move.prototype.act = function(step) {
+        var newPosition = this.position.plus(this.speed.times(step));
+        if (newPosition.y >= this.endPosition) {
+            this.speed.y = 0;
+            this.position.y = this.endPosition;
+        } else {
+            this.position = newPosition;
+        }
+    }
+        
     
-    //View
+//View
     
     //draws the board with no moves populating it
-    function emptyBoardView() {
-        cxBoard.clearRect(0, 0, 700, 600);
-        cxBoard.fillStyle = "Black";
-        cxBoard.fillRect(0, 0, 700, 600);
+    function drawFrameView() {
+        cxFrame.globalCompositeOperation = "xor";
+        cxFrame.fillStyle = "Black";
+        cxFrame.fillRect(0, 0, 700, 600);
         for (var i=0; i<700; i+=100) {
             for (var j=0; j<600; j+=100) {
-                drawFilledCircle(cxBoard, {x: i, y: j}, 100, 45, "white")
+                drawFilledCircle(cxFrame, {x: i, y: j}, 100, 45, "white")
             }
         }
     } 
     
-    //loop over board array drawing circles
-    function updateBoardView(board) {
-        for (var i=0; i<6; i++) {
-            for (var j=0; j<7; j++) {
-                if (board[i][j] == 1) {
-                    drawFilledCircle(cxBoard, {x: j*100, y: i*100}, 100, 35, "red")
-                } else if (board[i][j] == -1) {
-                    drawFilledCircle(cxBoard, {x: j*100, y: i*100}, 100, 35, "yellow")
-                }
-            }
+    function clearMovesView() {
+        cxMoves.clearRect(0, 0, 700, 600);
+    }
+    
+    // Move Animation
+    var lastTime = null;
+    function frame(time) {
+        if (lastTime != null) {
+            updateMoveAnimation(Math.min(100, time - lastTime) / 1000);
         }
-    } 
+        lastTime = time;
+        requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    function updateMoveAnimation(step) {
+        //calls act on each move object, updating position
+        moves.forEach(function(move) {
+            move.act(step);
+        });
+        
+        clearMovesView();
+        
+        //redraw all moves
+        moves.forEach(function(move) {
+            drawMove(move.position.x, move.position.y, move.player);
+        });
+    }
+    
+    function drawMove(positionX, positionY, player) {
+        if (player == 1) {
+            drawFilledCircle(cxMoves, {x: positionX, y: positionY}, 100, 35, "red")
+        } else {
+            drawFilledCircle(cxMoves, {x: positionX, y: positionY}, 100, 35, "yellow")
+        }
+    }
     
     function drawFilledCircle(context, position, size, radius, fillColour) {
         var x = position.x;
@@ -147,6 +205,7 @@
         context.fill();
     }
     
+    //header view 
     function getHeaderElt(move) {
         return document.getElementById(moveToId(move)); 
     }
@@ -167,16 +226,17 @@
         context.fill();
     }
     
-    function clearCanvas(context, size) {
+    function clearHeader(context, size) {
         context.clearRect(0, 0, size, size);
     }
     
+    //status text view
     function setStatusText(text) {
         document.getElementById("connect-four-game-status").innerText = text;
     }
     
     
-    //Controller
+//Controller
     
     function idToMove(id) {
         return parseInt(id[13]);
@@ -188,8 +248,10 @@
     
     function playMove(board, move, player) {
         console.log("move valid", move);
+        //updateBoardView(board);
+        moves.push(new Move(new Vector(move*100, 0), player));
+        //animateMoveView(board, move, player); 
         updateBoardArray(board, move, player);
-        updateBoardView(board);
     }
     
     function setClickListener(move) {
@@ -221,28 +283,28 @@
         getHeaderElt(move).addEventListener("mouseover", function() {
             console.log("mouseover", move);
             drawArrow(headerContexts[move], {x: 0, y: 0}, 100, 100, "blue")
-            
-            
         });
     }
     
     function setMouseoutListener(move) {
         getHeaderElt(move).addEventListener("mouseout", function() {
             console.log("mouseout", move);
-            clearCanvas(headerContexts[move], 100)
+            clearHeader(headerContexts[move], 100)
         });
     }
         
     document.getElementById("connect-four-new-game").addEventListener("click", newGame);
     
     function newGame() {
-        emptyBoardView();
+        clearMovesView();
+        moves = [];
         board = newBoard();
         player = 1;
         setStatusText("Red to play.");
     }
     
-    var cxBoard = document.getElementById("connect-four-board").getContext("2d");
+    var cxMoves = document.getElementById("connect-four-moves").getContext("2d");
+    var cxFrame = document.getElementById("connect-four-frame").getContext("2d");
     var headerContexts = [];
     //gets contexts for all of the headers and stores in array
     for (var i=0; i<7; i++) {
@@ -255,8 +317,10 @@
         setMouseoverListener(i);
         setMouseoutListener(i)
     }
-
+    
     var board;
     var player;
+    var moves;
+    drawFrameView();
     newGame();
- })();
+})();

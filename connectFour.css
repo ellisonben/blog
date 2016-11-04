@@ -10,3 +10,23 @@
 #connect-four .column-header {
     float: left;
 }
+
+#connect-four .wrapper {
+    position: relative;
+    height: 625px;
+    width: 700px;
+}
+
+#connect-four-frame {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 2;
+}
+
+#connect-four-moves {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+}

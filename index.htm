@@ -29,13 +29,39 @@
     <section>
         <h2>Connect Four</h2>
         <p>
-            I recently went to a wedding where they had a giant Connect 4 game for guests to play on during the day. Having a go with it reignited my childhood love of the game.
+            I recently went to a wedding where they had a giant Connect 4 game for guests to play on during the day. Having a go with it reignited my childhood love of the game so I set to work coding a version up.
         </p>
         <p>
-            Below is my version of the game using JavaScript. The game uses canvas elements to show the state of play and stores the game state in a two dimensional array. I am looking to introduce a move animation to the game and write an AI for it (first job is to write one for the tic tac toe below).
+            My version of the game uses JavaScript to manipulate canvas elements to show the state of play and stores the game state in a two dimensional array. My first version of the game used a single canvas element to represent the board with the frame static and the all of the moves redrawn each time a move was played.
+        </p>
+<pre><code>
+//loop over board array drawing circles
+function updateBoardView(board) {
+    for (var i=0; i<6; i++) {
+        for (var j=0; j<7; j++) {
+            if (board[i][j] == 1) {
+                drawFilledCircle(cxMoves, {x: j*100, y: i*100}, 100, 35, "red")
+            } else if (board[i][j] == -1) {
+                drawFilledCircle(cxMoves, {x: j*100, y: i*100}, 100, 35, "yellow")
+            }
+        }
+    }
+}
+</code></pre>
+        <p>
+            This was fine as a first version as it made the game playable. However, I thought that it would look much better with an animation that gave the same satisfying piece dropping into place visual effect of the real-life game (the clunk is part of that but unsolicited/unexpected website noise is not my favourite). In order to do this I needed to create a different model for the way the moves were drawn - the underlying game logic remains the same. 
         </p>
         <p>
-            Hover above the columns to select the move that you want to make.
+            The new model has two canvases placed on top of each other by changing their z-index style and positioning them absolutely in a wrapper div. The top layer is the frame canvas, which is drawn once as the page loads. The white holes on the frame needed to be transparent in order for the moves to be seen below them. This can be achieved by setting the globalCompositeOperation property of the canvas to "xor" as this means that the filled circles of white drawn onto the black rectangle cancel each other out to leave holes in the canvas through which one can view the moves being animated beneath it.
+        </p>
+        <p>
+            In order to animate the moves, I decided to extend the model from my bouncing ball (see below) and create Move objects that would identify with a player and would havea  predefined destination indicating the level they needed to fall to. When a valid move is played a new Move instance is created and added to a moves array that can be iterated over in order to adjust position and draw the moves with each call to requestAnimationFrame. This has given a much more satifying visual feel and the approach benefits from being able to deal with moves played before the previous animation is finished and still animate correctly.
+        </p>
+        <p>
+            Below is my latest version of the game - I would love it if you want to check out the code in the sources for this page (connectFour.js and connectFour.css). Having now introduced an animation for the moves my next extension of this project will be to write an AI for it (first job is to write one for the tic tac toe below).
+        </p>
+        <p>
+            Have a game:
         </p>
         <div id="connect-four">
             <canvas class="column-header" id="connect-four-0" width="100" height="100"></canvas>
@@ -46,8 +72,10 @@
             <canvas class="column-header" id="connect-four-5" width="100" height="100"></canvas>
             <canvas class="column-header" id="connect-four-6" width="100" height="100"></canvas>
             <div class="clearfix"></div>
-            
-            <canvas id ="connect-four-board" width="700" height="600"></canvas>
+            <div class="wrapper">
+                <canvas id ="connect-four-frame" width="700" height="600"></canvas>
+                <canvas id ="connect-four-moves" width="700" height="600"></canvas>
+            </div>
             <div class="clearfix"></div>
             
             <input type="button" value="New Game" id="connect-four-new-game">
