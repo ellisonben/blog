@@ -282,14 +282,16 @@
     function setMouseoverListener(move) {
         getHeaderElt(move).addEventListener("mouseover", function() {
             console.log("mouseover", move);
-            drawArrow(headerContexts[move], {x: 0, y: 0}, 100, 100, "blue")
+            drawArrow(headerContexts[move], {x: 0, y: 0}, 100, 100, "#0066ff");
         });
     }
     
     function setMouseoutListener(move) {
         getHeaderElt(move).addEventListener("mouseout", function() {
             console.log("mouseout", move);
-            clearHeader(headerContexts[move], 100)
+            clearHeader(headerContexts[move], 100);
+            //draw nudge arrow
+            drawArrow(headerContexts[move], {x: 35, y: 35}, 30, 30, "#99ccff");
         });
     }
         
@@ -310,6 +312,12 @@
     for (var i=0; i<7; i++) {
         headerContexts.push(document.getElementById(moveToId(i)).getContext("2d"));
     }
+    
+    headerContexts.forEach(function(cx) {
+        //draw nudge arrow
+        drawArrow(cx, {x: 35, y: 35}, 30, 30, "#99ccff");
+    });
+    
     
     //adds listeners to the headers
     for (var i=0; i<7; i++) {
